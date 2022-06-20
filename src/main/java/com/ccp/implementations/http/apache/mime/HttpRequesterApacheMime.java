@@ -10,16 +10,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import com.ccp.decorators.CcpMapDecorator;
-import com.ccp.dependency.injection.CcpImplementation;
 import com.ccp.especifications.http.CcpHttpRequester;
 import com.ccp.especifications.http.CcpHttpResponse;
 
-@CcpImplementation
-public class CcpHttpRequesterApacheMime implements CcpHttpRequester {
+class HttpRequesterApacheMime implements CcpHttpRequester {
 
 	@Override
 	public CcpHttpResponse executeHttpRequest(String url, String method, CcpMapDecorator headers, String body) {
-		CcpHttpMethod verb = CcpHttpMethod.valueOf(method);
+		HttpMethod verb = HttpMethod.valueOf(method);
 		HttpRequestBase metodo = verb.getMethod(url, body);
 		try {
 			CloseableHttpClient client =CcpHttpRequestRetryHandler.getClient();

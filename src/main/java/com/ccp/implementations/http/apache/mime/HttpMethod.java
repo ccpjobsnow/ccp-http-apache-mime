@@ -14,7 +14,7 @@ import org.apache.http.entity.StringEntity;
 
 import com.ccp.decorators.CcpMapDecorator;
 
-public enum CcpHttpMethod {
+enum HttpMethod {
 
 	POST {
 		@Override
