@@ -1,6 +1,7 @@
 package com.ccp.implementations.http.apache.mime;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -19,6 +20,13 @@ class HttpRequesterApacheMime implements CcpHttpRequester {
 	public CcpHttpResponse executeHttpRequest(String url, String method, CcpMapDecorator headers, String body) {
 		HttpMethod verb = HttpMethod.valueOf(method);
 		HttpRequestBase metodo = verb.getMethod(url, body);
+		
+		Set<String> keySet = headers.keySet();
+		for (String headerName : keySet) {
+			String header = headers.getAsString(headerName);
+			metodo.addHeader(headerName, header);
+		}
+		
 		try {
 			CloseableHttpClient client =CcpHttpRequestRetryHandler.getClient();
 
