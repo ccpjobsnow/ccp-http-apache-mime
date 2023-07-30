@@ -28,13 +28,16 @@ class HttpRequesterApacheMime implements CcpHttpRequester {
 		}
 		
 		try {
-			CloseableHttpClient client =CcpHttpRequestRetryHandler.getClient();
+			CloseableHttpClient client = CcpHttpRequestRetryHandler.getClient();
 
 			CloseableHttpResponse response = client.execute(metodo);
 
 			HttpEntity entity = response.getEntity();
-	
-			String string = EntityUtils.toString(entity);
+			String string = "";
+			if(entity != null) {
+				string = EntityUtils.toString(entity);
+				
+			}
 			
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
