@@ -1,6 +1,5 @@
 package com.ccp.implementations.http.apache.mime;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.apache.http.HttpEntity;
@@ -43,7 +42,7 @@ class HttpRequesterApacheMime implements CcpHttpRequester {
 			int statusCode = statusLine.getStatusCode();
 			CcpHttpResponse ccpHttpResponse = new CcpHttpResponse(string, statusCode);
 			return ccpHttpResponse;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
