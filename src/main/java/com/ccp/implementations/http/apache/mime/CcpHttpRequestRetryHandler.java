@@ -3,10 +3,7 @@ package com.ccp.implementations.http.apache.mime;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.UnknownHostException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
 
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -14,12 +11,15 @@ import org.apache.http.HttpRequest;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
+
 class CcpHttpRequestRetryHandler implements HttpRequestRetryHandler {
 
 	@Override
@@ -50,17 +50,18 @@ class CcpHttpRequestRetryHandler implements HttpRequestRetryHandler {
 		return b;
 	}
 
+	@SuppressWarnings("deprecation")
 	static CloseableHttpClient getClient() throws Exception{
-		 TrustStrategy trustStrategy = new TrustStrategy() {
-		      @Override
-		      public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-		        return true;
-		      }
-		    };
+		SSLContextBuilder builder = new SSLContextBuilder();
+		builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
 
-		    SSLContext sslContext = SSLContextBuilder.create().loadTrustMaterial(null, trustStrategy).build();
-		    SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext);
+		LayeredConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                builder.build(), SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);;
+		HttpClientBuilder custom = HttpClients.custom().setSSLSocketFactory(sslsf);
+		
+		HttpClientBuilder setRetryHandler = custom.setRetryHandler(new CcpHttpRequestRetryHandler());
+		CloseableHttpClient client = setRetryHandler.build();
+		return client;
+	}
 
-		    return HttpClients.custom().setSSLSocketFactory(sslSocketFactory).build();
-		  }
 }
