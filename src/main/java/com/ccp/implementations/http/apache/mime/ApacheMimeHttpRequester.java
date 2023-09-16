@@ -13,7 +13,7 @@ import com.ccp.decorators.CcpMapDecorator;
 import com.ccp.especifications.http.CcpHttpRequester;
 import com.ccp.especifications.http.CcpHttpResponse;
 
-class HttpRequesterApacheMime implements CcpHttpRequester {
+class ApacheMimeHttpRequester implements CcpHttpRequester {
 
 	@Override
 	public CcpHttpResponse executeHttpRequest(String url, String method, CcpMapDecorator headers, String body) {
