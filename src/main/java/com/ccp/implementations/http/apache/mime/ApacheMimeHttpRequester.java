@@ -9,14 +9,14 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.ccp.decorators.CcpMapDecorator;
+import com.ccp.decorators.CcpJsonRepresentation;
 import com.ccp.especifications.http.CcpHttpRequester;
 import com.ccp.especifications.http.CcpHttpResponse;
 
 class ApacheMimeHttpRequester implements CcpHttpRequester {
 
 	@Override
-	public CcpHttpResponse executeHttpRequest(String url, String method, CcpMapDecorator headers, String body) {
+	public CcpHttpResponse executeHttpRequest(String url, String method, CcpJsonRepresentation headers, String body) {
 		HttpMethod verb = HttpMethod.valueOf(method);
 		HttpRequestBase metodo = verb.getMethod(url, body);
 		

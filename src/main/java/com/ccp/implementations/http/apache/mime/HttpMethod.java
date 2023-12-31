@@ -12,7 +12,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 
-import com.ccp.decorators.CcpMapDecorator;
+import com.ccp.decorators.CcpJsonRepresentation;
 
 enum HttpMethod {
 
@@ -62,7 +62,7 @@ enum HttpMethod {
 	},
 	;
 	
-	public HttpRequestBase getMethod(String url, CcpMapDecorator headers, String body) {
+	public HttpRequestBase getMethod(String url, CcpJsonRepresentation headers, String body) {
 		HttpRequestBase method = this.getMethod(url, body);
 		Set<String> keySet = headers.keySet();
 		for (String headerName : keySet) {
