@@ -17,7 +17,7 @@ import com.ccp.decorators.CcpJsonRepresentation;
 enum HttpMethod {
 
 	POST {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpPost method = new HttpPost(url);
 			method.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
@@ -25,13 +25,13 @@ enum HttpMethod {
 		}
 	},
 	GET {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			return new HttpGet(url);
 		}
 	},
 	PUT {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpPut method = new HttpPut(url);
 			method.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
@@ -39,7 +39,7 @@ enum HttpMethod {
 		}
 	},
 	PATCH {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpPatch method = new HttpPatch(url);
 			method.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
@@ -47,14 +47,14 @@ enum HttpMethod {
 		}
 	},
 	DELETE {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpDelete method = new HttpDelete(url);
 			return method;
 		}
 	},
 	HEAD {
-		@Override
+		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpHead httpHead = new HttpHead(url);
 			return httpHead;

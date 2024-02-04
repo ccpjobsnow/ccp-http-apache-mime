@@ -22,7 +22,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 
 class CcpHttpRequestRetryHandler implements HttpRequestRetryHandler {
 
-	@Override
+	
 	public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
         if (executionCount >= 3) {
             // Do not retry if over max retry count
