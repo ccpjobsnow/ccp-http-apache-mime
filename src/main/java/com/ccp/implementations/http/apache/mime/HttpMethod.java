@@ -64,7 +64,7 @@ enum HttpMethod {
 	
 	public HttpRequestBase getMethod(String url, CcpJsonRepresentation headers, String body) {
 		HttpRequestBase method = this.getMethod(url, body);
-		Set<String> keySet = headers.keySet();
+		Set<String> keySet = headers.fieldSet();
 		for (String headerName : keySet) {
 			String headerValue = headers.getAsString(headerName);
 			method.addHeader(headerName, headerValue);
