@@ -16,7 +16,7 @@ import com.ccp.decorators.CcpJsonRepresentation;
 
 enum HttpMethod {
 
-	POST {
+	POST { 
 		
 		public HttpRequestBase getMethod(String url, String body) {
 			HttpPost method = new HttpPost(url);

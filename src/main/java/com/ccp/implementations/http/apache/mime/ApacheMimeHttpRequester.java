@@ -21,7 +21,7 @@ class ApacheMimeHttpRequester implements CcpHttpRequester {
 		HttpRequestBase metodo = verb.getMethod(url, body);
 		
 		Set<String> keySet = headers.fieldSet();
-		for (String headerName : keySet) {
+		for (String headerName : keySet) { 
 			String header = headers.getAsString(headerName);
 			metodo.addHeader(headerName, header);
 		}
