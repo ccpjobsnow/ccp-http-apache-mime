@@ -12,12 +12,13 @@ import org.apache.http.util.EntityUtils;
 import com.ccp.decorators.CcpJsonRepresentation;
 import com.ccp.especifications.http.CcpHttpRequester;
 import com.ccp.especifications.http.CcpHttpResponse;
+import com.ccp.http.CcpHttpMethods;
 
 class ApacheMimeHttpRequester implements CcpHttpRequester {
 
 	
-	public CcpHttpResponse executeHttpRequest(String url, String method, CcpJsonRepresentation headers, String body) {
-		HttpMethod verb = HttpMethod.valueOf(method);
+	public CcpHttpResponse executeHttpRequest(String url, CcpHttpMethods method, CcpJsonRepresentation headers, String body) {
+		HttpMethod verb = HttpMethod.valueOf(method.name());
 		HttpRequestBase metodo = verb.getMethod(url, body);
 		
 		Set<String> keySet = headers.fieldSet();
